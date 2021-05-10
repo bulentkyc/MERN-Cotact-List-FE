@@ -29,7 +29,7 @@ function App() {
       body: JSON.stringify(form)
     }
 
-    fetch(url, options)
+    fetch(url, options).then(data => data.json().then(output => setContacts([...contacts, output])));
   }
 
   useEffect(() => {
