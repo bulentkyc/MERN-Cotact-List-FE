@@ -1,6 +1,6 @@
 import "./Cards.css";
 
-const Card = ({contact}) => {
+const Card = ({contact, deleteContact}) => {
     const {fullName, email, phone, address} = contact;
     return(
         <div className="card">
@@ -8,6 +8,8 @@ const Card = ({contact}) => {
             <p>{email}</p>
             <p>{phone}</p>
             <p>{address}</p>
+            <button>✏️</button>
+            <button onClick={deleteContact} >🗑️</button>
         </div>
     );
 }

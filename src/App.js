@@ -29,7 +29,8 @@ function App() {
       body: JSON.stringify(form)
     }
 
-    fetch(url, options).then(data => data.json().then(output => setContacts([...contacts, output])));
+    fetch(url, options)
+    .then(data => data.json().then(output => setContacts([...contacts, output])));
   }
 
   useEffect(() => {
@@ -40,11 +41,32 @@ function App() {
     }));
   }, []);
   
+  const deleteContactHandler = (id) => {
+    const url = 'http://localhost:8080/contacts/'+id;
+    const options = {
+      method: 'DELETE'
+    }
+
+    fetch(url, options).then(response => response.json().then(output => {
+      alert(output.message);
+      //
+      let newList = contacts.filter(contact => {
+        if (contact._id != output.data) {
+          return contact;
+        }
+      });
+      setContacts(newList);
+    }));
+  }
   
 
-  const cards = contacts.map(contact => <Card key = {contact['_id']} contact = {contact}/>);
+  const cards = contacts.map(contact => <Card 
+    key = {contact['_id']} 
+    contact = {contact}
+    deleteContact = {deleteContactHandler.bind(this,contact['_id'])}
+    />);
 
-  console.log(cards, contacts)
+  /* console.log(cards, contacts) */
   return (
     <div className="App">
       <form className="form" onSubmit = {formSubmitHandler}>

@@ -1,17 +1,13 @@
-body {
-  background-image: url('../src/assets/bg.svg');
-  width: 100vw;
-}
-
 .App {
+  background-image: url('../src/assets/bg.svg');
   height: 100vh;
-  width: 100%;
+  width: 100vw;
+  display:flex;
+  align-items: center;
 }
 
 .form {
-  display:inline-block;
   width: 25vw;
-  max-width: 400px;
 }
 
 .form > * {
@@ -22,14 +18,18 @@ body {
 }
 
 .contact-list {
-  display: inline-block;
+  display: flex;
   flex-wrap: wrap;
-  width: 80vw;
-  max-width: 400px;
+  justify-content: center;
+  align-content: flex-start;
+  width: 75vw;
+  height: 100vh;
+  overflow-y: scroll;
 }
 
 .card {
-  width: 30vw;
+  width: 210px;
+  height: 200px;
   margin: 5px;
   padding: 5px;
   border: 1px solid gray;
