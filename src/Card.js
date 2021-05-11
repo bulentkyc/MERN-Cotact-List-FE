@@ -4,6 +4,7 @@ import {useState} from "react";
 const Card = ({contact, deleteContact}) => {
     const {fullName, email, phone, address} = contact;
     const editedContact = {...contact};
+    //delete editedContact._id;
     
     const [isEditable, setIsEditable] = useState(false);
     const [bgColor, setBgColor] = useState('white');
@@ -47,7 +48,8 @@ const Card = ({contact, deleteContact}) => {
             } else {
                 setBgColor('coral');
             }
-        }));
+        }))
+        .catch(err => setBgColor('coral'));
 
     }
 
