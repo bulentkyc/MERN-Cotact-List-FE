@@ -12,6 +12,9 @@ function App() {
     phone: '123456', 
     address:'test'}
   ]);
+
+  const [isEditable, setIsEditable] = useState(false);
+
   const fillForm = (e, field) => {
     let newForm = {...form};
     newForm[field] = e.target.value;
@@ -47,21 +50,37 @@ function App() {
       method: 'DELETE'
     }
 
-    fetch(url, options).then(response => response.json().then(output => {
-      alert(output.message);
+    fetch(url, options)
+    .then(response => response.json().then(output => {
+      
       //
-      let newList = contacts.filter(contact => {
-        if (contact._id != output.data) {
-          return contact;
-        }
-      });
-      setContacts(newList);
-    }));
+      if (output.status === 'success') {
+        alert(output.message);
+        let newList = contacts.filter(contact => {
+          if (contact._id != output.data) {
+            return contact;
+          }
+        });
+        setContacts(newList);
+      } else {
+        alert(`There's an error. For details please check the console.`);
+        console.log(output.message);
+      }
+      
+    }))
+    .catch(err=>{
+      alert(err)
+    });
+  }
+
+  const editToggle = () => {
+    setIsEditable(!isEditable);
   }
   
 
   const cards = contacts.map(contact => <Card 
-    key = {contact['_id']} 
+    key = {contact['_id']}
+    editToggle = {editToggle}
     contact = {contact}
     deleteContact = {deleteContactHandler.bind(this,contact['_id'])}
     />);
