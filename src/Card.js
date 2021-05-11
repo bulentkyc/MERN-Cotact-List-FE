@@ -1,8 +1,17 @@
 import "./Cards.css";
+import {useState} from "react";
 
 const Card = ({contact, deleteContact}) => {
     const {fullName, email, phone, address} = contact;
     const editedContact = {...contact};
+    
+    const [isEditable, setIsEditable] = useState(false);
+    const [bgColor, setBgColor] = useState('white');
+
+    const editToggle = () => {
+        setIsEditable(!isEditable);
+        setBgColor(isEditable?'white':'lavender');
+    }
 
     const editCardHandler = (e) => {
         const id = e.target.getAttribute("data-id");
@@ -31,37 +40,44 @@ const Card = ({contact, deleteContact}) => {
         }
 
         fetch(url, options)
-        .then(data => data.json().then(output => console.log({output})));
+        .then(data => data.json().then(output => {
+            if (output.status === 'success') {
+                setIsEditable(false);
+                setBgColor('green');
+            } else {
+                setBgColor('coral');
+            }
+        }));
 
     }
 
     return(
-        <div className="card">
+        <div className='card' style={{backgroundColor: bgColor}}>
             <div data-id="fullName"
                 onKeyPress={editCheckHandler}
                 onBlur = {editCardHandler}
-                contentEditable={true}>
+                contentEditable={isEditable}>
                 {fullName}
             </div>
             <div data-id="email"
                 onKeyPress={editCheckHandler}
                 onBlur = {editCardHandler}
-                contentEditable={true}>
+                contentEditable={isEditable}>
                 {email}
             </div>
             <div data-id="phone"
                 onKeyPress={editCheckHandler}
                 onBlur = {editCardHandler}
-                contentEditable={true}>
+                contentEditable={isEditable}>
                 {phone}
             </div>
             <div data-id="address"
                 onKeyPress={editCheckHandler}
                 onBlur = {editCardHandler}
-                contentEditable={true}>
+                contentEditable={isEditable}>
                 {address}
             </div>
-            <button >✏️</button>
+            <button onClick={editToggle}>✏️</button>
             <button onClick={updateContactHandler}>💾</button>
             <button onClick={deleteContact} >🗑️</button>
         </div>

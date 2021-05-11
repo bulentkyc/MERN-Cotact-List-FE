@@ -13,7 +13,7 @@ function App() {
     address:'test'}
   ]);
 
-  const [isEditable, setIsEditable] = useState(false);
+  
 
   const fillForm = (e, field) => {
     let newForm = {...form};
@@ -73,14 +73,11 @@ function App() {
     });
   }
 
-  const editToggle = () => {
-    setIsEditable(!isEditable);
-  }
+
   
 
   const cards = contacts.map(contact => <Card 
     key = {contact['_id']}
-    editToggle = {editToggle}
     contact = {contact}
     deleteContact = {deleteContactHandler.bind(this,contact['_id'])}
     />);
