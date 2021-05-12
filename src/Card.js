@@ -3,7 +3,7 @@ import {useState} from "react";
 
 const Card = ({contact, deleteContact}) => {
     const {fullName, email, phone, address} = contact;
-    const editedContact = {...contact};
+    const editedContact = {_id: contact._id};
     //delete editedContact._id;
     
     const [isEditable, setIsEditable] = useState(false);
