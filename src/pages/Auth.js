@@ -1,17 +1,17 @@
 import './Auth.css';
-
+import { useHistory } from "react-router-dom";
 export default function(props) {
+    let history = useHistory();
 
     let submitHandler = (e) => {
         e.preventDefault();
         console.log(e);
 
         let data = {};
-
         data.email = e.target[0].value;
         data.pass = e.target[1].value;
 
-        let urlRegister = 'https://auth404.herokuapp.com/api/auth/register';
+        let urlRegister = 'http://localhost:8080/auth/register';
         let urlLogin = 'http://localhost:8080/auth/login';
         let options = {
             method:'POST', 
@@ -22,7 +22,7 @@ export default function(props) {
             body:JSON.stringify(data)
         }
 
-        if (e.nativeEvent.submitter.id == "register"){
+        if (e.nativeEvent.submitter.id == "register") {
             fetch(urlRegister, options).then(result=>result.json().then(output=>
                 {
                     if (output.status == 'success') {
@@ -36,13 +36,20 @@ export default function(props) {
             fetch(urlLogin, options)
             .then(result=>result.json()
                 .then(output=>{
+                    alert(output.message);
+                    console.log(output);
+                    localStorage.setItem('token',output.token);
+                    history.push('/contacts');
+
+/* 
                     if (output.status == 'success') {
                         localStorage.setItem('token', output.token);
                         //console.log(props.setIsLoggedIn);
-                        props.setIsLoggedIn(true);
+                        //props.setIsLoggedIn(true);
                     } else {
                         localStorage.removeItem('token');
                     }
+                     */
                 }));
         }
     }

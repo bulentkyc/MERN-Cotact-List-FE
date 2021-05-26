@@ -3,6 +3,7 @@ import Card from "../components/Card"
 
 function Contacts() {
 
+
   const [form, setForm] = useState({fullName:'', email: '', phone: '', address:''});
   const [contacts, setContacts] = useState([{
     _id:'1', 
@@ -37,8 +38,13 @@ function Contacts() {
 
   useEffect(() => {
     const url = 'http://localhost:8080/contacts/all';
+    const options = {
+      headers: {
+        'x-auth-token': localStorage.getItem('token')
+      }
+    }
     
-    fetch(url).then(data => data.json().then(contacts => {
+    fetch(url, options).then(data => data.json().then(contacts => {
       setContacts(contacts);
     }));
   }, []);
