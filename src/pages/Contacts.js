@@ -3,6 +3,10 @@ import Card from "../components/Card"
 
 function Contacts() {
 
+  const headers = {
+    'Content-Type': 'application/json',
+    'x-auth-token': localStorage.getItem('token')
+  }
 
   const [form, setForm] = useState({fullName:'', email: '', phone: '', address:''});
   const [contacts, setContacts] = useState([{
@@ -26,9 +30,7 @@ function Contacts() {
     const url = 'http://localhost:8080/contacts/new';
     const options = {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers,
       body: JSON.stringify(form)
     }
 
@@ -39,9 +41,7 @@ function Contacts() {
   useEffect(() => {
     const url = 'http://localhost:8080/contacts/all';
     const options = {
-      headers: {
-        'x-auth-token': localStorage.getItem('token')
-      }
+      headers
     }
     
     fetch(url, options).then(data => data.json().then(contacts => {
@@ -52,7 +52,8 @@ function Contacts() {
   const deleteContactHandler = (id) => {
     const url = 'http://localhost:8080/contacts/'+id;
     const options = {
-      method: 'DELETE'
+      method: 'DELETE',
+      headers
     }
 
     fetch(url, options)
