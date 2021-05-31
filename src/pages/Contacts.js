@@ -1,8 +1,17 @@
 import {useState, useEffect} from "react";
-import Card from "../components/Card"
+import Card from "../components/Card";
+import { useHistory } from "react-router-dom";
 
 function Contacts() {
-
+  
+  let history = useHistory();
+  
+  useEffect(() => {
+    if (!localStorage.getItem('token')) {
+      history.push('/auth');
+    }
+  });
+  
   const headers = {
     'Content-Type': 'application/json',
     'x-auth-token': localStorage.getItem('token')
@@ -27,6 +36,7 @@ function Contacts() {
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
+    console.log(e);
     const url = 'http://localhost:8080/contacts/new';
     const options = {
       method: 'POST',
@@ -44,8 +54,13 @@ function Contacts() {
       headers
     }
     
-    fetch(url, options).then(data => data.json().then(contacts => {
-      setContacts(contacts);
+    fetch(url, options).then(data => data.json().then(output => {
+      if (output.status == 'success') {
+        setContacts(output.data);
+      } else {
+        console.log(output.message);
+      }
+      
     }));
   }, []);
   
@@ -80,13 +95,16 @@ function Contacts() {
   }
 
 
-  
+  let cards = [];
 
-  const cards = contacts.map(contact => <Card 
-    key = {contact['_id']}
-    contact = {contact}
-    deleteContact = {deleteContactHandler.bind(this,contact['_id'])}
-    />);
+  if (typeof(contacts)=='object' && contacts.length > 0) {
+    cards = contacts.map(contact => <Card 
+      key = {contact['_id']}
+      contact = {contact}
+      deleteContact = {deleteContactHandler.bind(this,contact['_id'])}
+      />);
+  } 
+  
 
   /* console.log(cards, contacts) */
   return (
@@ -96,6 +114,7 @@ function Contacts() {
         <input type = "email" placeholder="Email" value = {form.email} onChange = {(e) => fillForm(e, 'email')}/>
         <input type = "tel" placeholder="Phone number" value = {form.phone} onChange = {(e) => fillForm(e, 'phone')}/>
         <input placeholder="Address" value = {form.address} onChange = {(e) => fillForm(e, 'address')}/>
+        <input type = "file"/>
         <button>Create Contact</button>
       </form>
 
