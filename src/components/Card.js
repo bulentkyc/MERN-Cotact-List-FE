@@ -38,7 +38,6 @@ const Card = ({contact, deleteContact}) => {
 
         let finalForm = new FormData();
 
-
         Object.keys(editedContact).forEach(key => {
             finalForm.append(key, editedContact[key]) 
         })
