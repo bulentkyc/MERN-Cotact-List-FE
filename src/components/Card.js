@@ -16,7 +16,12 @@ const Card = ({contact, deleteContact}) => {
 
     const editCardHandler = (e) => {
         const id = e.target.getAttribute("data-id");
-        const info = e.target.innerText;
+        let info;
+        if (id == 'file') {
+            info = e.target.files[0];
+        } else {
+            info = e.target.innerText;
+        }
         /* console.log({id, info}); */
         editedContact[id]=info;
     }
@@ -31,14 +36,20 @@ const Card = ({contact, deleteContact}) => {
     const updateContactHandler = () => {
         console.log(editedContact);
 
+        let finalForm = new FormData();
+
+
+        Object.keys(editedContact).forEach(key => {
+            finalForm.append(key, editedContact[key]) 
+        })
+
         const url = 'http://localhost:8080/contacts/update';
         const options = {
         method: 'POST',
         headers: {
-            'x-auth-token': localStorage.getItem('token'),
-            'Content-Type': 'application/json'
+            'x-auth-token': localStorage.getItem('token')
         },
-        body: JSON.stringify(editedContact)
+        body: finalForm
         }
 
         fetch(url, options)
@@ -54,9 +65,10 @@ const Card = ({contact, deleteContact}) => {
 
     }
 
+
     return(
         <div className='card' style={{backgroundColor: bgColor}}>
-            <img src = {"http://localhost:8080/avatars/" + avatar}/>
+            {isEditable?<input data-id="file" type="file" onChange= {editCardHandler}/>:<img src = {"http://localhost:8080/avatars/" + avatar}/>}
             <div data-id="fullName"
                 onKeyPress={editCheckHandler}
                 onBlur = {editCardHandler}
