@@ -36,12 +36,21 @@ function Contacts() {
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
-    console.log(e);
+
+    let finalForm = new FormData();
+    finalForm.append('fullName', form.fullName) 
+    finalForm.append('email', form.email) 
+    finalForm.append('phone', form.phone) 
+    finalForm.append('address', form.address) 
+    finalForm.append('file', e.target[4].files[0])
+    console.log('finalForm',finalForm);
     const url = 'http://localhost:8080/contacts/new';
     const options = {
       method: 'POST',
-      headers,
-      body: JSON.stringify(form)
+      headers: {
+        'x-auth-token': localStorage.getItem('token')
+      },
+      body: finalForm
     }
 
     fetch(url, options)
