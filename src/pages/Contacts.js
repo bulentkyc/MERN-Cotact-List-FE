@@ -43,7 +43,7 @@ function Contacts() {
     finalForm.append('phone', form.phone) 
     finalForm.append('address', form.address) 
     finalForm.append('file', e.target[4].files[0])
-    console.log('finalForm',finalForm);
+    
     const url = 'http://localhost:8080/contacts/new';
     const options = {
       method: 'POST',

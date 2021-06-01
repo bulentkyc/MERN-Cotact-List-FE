@@ -2,7 +2,7 @@ import "./Cards.css";
 import {useState} from "react";
 
 const Card = ({contact, deleteContact}) => {
-    const {fullName, email, phone, address} = contact;
+    const {fullName, email, phone, address, avatar} = contact;
     const editedContact = {_id: contact._id};
     //delete editedContact._id;
     
@@ -56,6 +56,7 @@ const Card = ({contact, deleteContact}) => {
 
     return(
         <div className='card' style={{backgroundColor: bgColor}}>
+            <img src = {"http://localhost:8080/avatars/" + avatar}/>
             <div data-id="fullName"
                 onKeyPress={editCheckHandler}
                 onBlur = {editCardHandler}
