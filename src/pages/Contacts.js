@@ -44,7 +44,7 @@ function Contacts() {
     finalForm.append('address', form.address) 
     finalForm.append('file', e.target[4].files[0])
     
-    const url = 'http://localhost:8080/contacts/new';
+    const url = 'https://contactlist-io.herokuapp.com/contacts/new';
     const options = {
       method: 'POST',
       headers: {
@@ -58,7 +58,7 @@ function Contacts() {
   }
 
   useEffect(() => {
-    const url = 'http://localhost:8080/contacts/all';
+    const url = 'https://contactlist-io.herokuapp.com/contacts/all';
     const options = {
       headers
     }
@@ -74,7 +74,7 @@ function Contacts() {
   }, []);
   
   const deleteContactHandler = (id) => {
-    const url = 'http://localhost:8080/contacts/'+id;
+    const url = 'https://contactlist-io.herokuapp.com/contacts/'+id;
     const options = {
       method: 'DELETE',
       headers
