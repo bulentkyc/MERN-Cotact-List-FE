@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/MERN-Cotact-List-FE/static/css/main.8c2201d8.chunk.css",
+    "main.js": "/MERN-Cotact-List-FE/static/js/main.20f1b95f.chunk.js",
+    "main.js.map": "/MERN-Cotact-List-FE/static/js/main.20f1b95f.chunk.js.map",
+    "runtime-main.js": "/MERN-Cotact-List-FE/static/js/runtime-main.e9a05482.js",
+    "runtime-main.js.map": "/MERN-Cotact-List-FE/static/js/runtime-main.e9a05482.js.map",
+    "static/js/2.34b915db.chunk.js": "/MERN-Cotact-List-FE/static/js/2.34b915db.chunk.js",
+    "static/js/2.34b915db.chunk.js.map": "/MERN-Cotact-List-FE/static/js/2.34b915db.chunk.js.map",
+    "static/js/3.8c567624.chunk.js": "/MERN-Cotact-List-FE/static/js/3.8c567624.chunk.js",
+    "static/js/3.8c567624.chunk.js.map": "/MERN-Cotact-List-FE/static/js/3.8c567624.chunk.js.map",
+    "index.html": "/MERN-Cotact-List-FE/index.html",
+    "static/css/main.8c2201d8.chunk.css.map": "/MERN-Cotact-List-FE/static/css/main.8c2201d8.chunk.css.map",
+    "static/js/2.34b915db.chunk.js.LICENSE.txt": "/MERN-Cotact-List-FE/static/js/2.34b915db.chunk.js.LICENSE.txt",
+    "static/media/App.css": "/MERN-Cotact-List-FE/static/media/bg.ab3ea406.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e9a05482.js",
+    "static/js/2.34b915db.chunk.js",
+    "static/css/main.8c2201d8.chunk.css",
+    "static/js/main.20f1b95f.chunk.js"
+  ]
+}
